@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.30;
 
-import {SimpleVault} from "../src/SimpleVault.sol";
+import {SimpleVault} from "./SimpleVault.sol";
 
 contract Setup {
     SimpleVault public simpleVault;
