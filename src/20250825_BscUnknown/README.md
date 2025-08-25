@@ -1,4 +1,8 @@
-2025年8月25日にBSCの謎のコントラクトからEIP-7702を悪用されて約$85,000が流出した攻撃が発生した。この攻撃を簡単に調査してみる。
+2025年8月25日にBSCの謎のコントラクトからEIP-7702を悪用されて約$85,000が流出した攻撃が発生した。Flash Loan Attack を防ぐ目的で `require(msg.sender == tx.origin)` を実装してしまったと推測されるパターン。この攻撃を簡単に調査してみる。
+
+攻撃トランザクション
+1. https://app.blocksec.com/explorer/tx/bsc/0x8a7c96521ac64fc33d8d8ceecdea9c1da9c72148c4399905c38a07ee47c3f36f
+2. https://app.blocksec.com/explorer/tx/bsc/0x089e37fc8d51a16e4cf1865a5c2ad75ea0c06e50f3e43beb7368706f852f44fc
 
 簡易な攻撃コードを [Exploit.t.sol](./Exploit.t.sol) に実装済みで、次のコマンドでローカル環境で攻撃を再現できる（調査＆教育目的なので悪用しないこと）:
 ```
@@ -21,7 +25,7 @@ Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 523.51ms (1.97ms CP
 Ran 1 test suite in 524.48ms (523.51ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
 ```
 
-実際の攻撃と若干差異があるが、本質は変わらないのでこのリポジトリの攻撃コードに沿って説明する。攻撃のターゲットとなったコントラクトはアップグレーダブルなコントラクトであり、実装コントラクトのコードが検証されていないので [そのデコンパイル結果](https://app.dedaub.com/decompile?md5=5d6dfedb14fc9ba00448f111b8e34fcd) を利用する。
+実際の攻撃と若干差異があるが、本質は変わらないのでこのリポジトリの攻撃コードに沿って説明する。攻撃のターゲットとなったコントラクトはアップグレーダブルなコントラクトであり、実装コントラクトのコードが検証されていないのでそのデコンパイル結果を利用する。
 
 まず、被害結果から 13.9 BNB を利用して $98,380 に相当する BSC-USD を獲得していることがわかる。また、攻撃トランザクションは 2 つに分かれている。
 
