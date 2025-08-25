@@ -41,7 +41,7 @@ require(v0 > _stakes[msg.sender].field1, Error('T+1 required'));
 
 また、`unstake` 関数に以下のコードもあることから、 EIP-7702 を利用した理由もわかる:
 
-```
+```solidity
 require(msg.sender == tx.origin, Error('wrong user'));
 ```
 
