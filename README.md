@@ -1,5 +1,10 @@
 # Notes on tx.origin Reentrancy Attacks
 
+**目次**
+- [概要](#概要)
+- [PoC](#poc)
+- [Appendix: EIP-7702 関連の脆弱性の分析一覧](#appendix-eip-7702-関連の脆弱性の分析一覧)
+
 ## 概要
 - 2025年5月に行われたPectraアップグレードで [EIP-7702](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-7702.md) が導入されたことで `tx.origin` から Reentrancy Attack が可能になった。
 - EIP-7702 は、簡単に言えば「Externally Owned Account (EOA) に Ethereum Virtual Machine (EVM) バイトコードをセットするための仕様」。
@@ -112,3 +117,6 @@ Ran 1 test suite in 102.14ms (1.63ms CPU time): 1 tests passed, 0 failed, 0 skip
 ```
 
 セットアップ後 `SimpleVault` コントラクトには 10,000 ether があり、攻撃後は 0 ether になっている。
+
+## Appendix: EIP-7702 関連の脆弱性の分析一覧
+- [2025-08-25 BSC の unknown コントラクトでの被害](./src/20250825_BscUnknown)
